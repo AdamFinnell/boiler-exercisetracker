@@ -1,19 +1,31 @@
 {
   "name": "fcc-exercise-tracker",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
-    "body-parser": "^1.20.2",
+    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "mongoose": "^7.5.0"
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "mongoose": "^7.8.7"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
-  }
+  },
+  "description": "This is the boilerplate for the Exercise Tracker project. Instructions for building your project can be found at https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/exercise-tracker",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdamFinnell/boiler-exercisetracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdamFinnell/boiler-exercisetracker/issues"
+  },
+  "homepage": "https://github.com/AdamFinnell/boiler-exercisetracker#readme"
 }
