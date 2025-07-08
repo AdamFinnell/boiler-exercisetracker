@@ -60,8 +60,7 @@ app.post('/api/users', async (req, res) => {
     const saved = await newUser.save();
     res.json({ username: saved.username, _id: saved._id });
   } catch (err) {
-    if (err.code === 11000) res.status(400).json({ error: 'Username already exists' });
-    else res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
@@ -76,31 +75,16 @@ app.get('/api/users', async (req, res) => {
 
 app.post('/api/users/:_id/exercises', async (req, res) => {
   try {
-    const { _id } = req.params;
-    const { description, duration, date } = req.body;
+    const user = await User.findById(req.params._id);
+    if (!user) return res.status(404).send('User not found');
 
-    if (!description || !duration) {
-      return res.status(400).json({ error: 'Description and duration are required' });
-    }
-
-    const user = await User.findById(_id);
-    if (!user) return res.status(404).json({ error: 'User not found' });
-
-    const parsedDuration = parseInt(duration);
-    if (isNaN(parsedDuration) || parsedDuration <= 0) {
-      return res.status(400).json({ error: 'Duration must be a positive number' });
-    }
-
-    let exerciseDate = date ? new Date(date) : new Date();
-    if (isNaN(exerciseDate.getTime())) {
-      return res.status(400).json({ error: 'Invalid date format' });
-    }
+    const date = req.body.date ? new Date(req.body.date) : new Date();
 
     const exercise = new Exercise({
       userId: user._id,
-      description,
-      duration: parsedDuration,
-      date: exerciseDate
+      description: req.body.description,
+      duration: parseInt(req.body.duration),
+      date
     });
 
     const savedExercise = await exercise.save();
@@ -117,6 +101,7 @@ app.post('/api/users/:_id/exercises', async (req, res) => {
   }
 });
 
+
 app.get('/api/users/:_id/logs', async (req, res) => {
   try {
     const { _id } = req.params;
@@ -125,7 +110,7 @@ app.get('/api/users/:_id/logs', async (req, res) => {
     const user = await User.findById(_id);
     if (!user) return res.status(404).json({ error: 'User not found' });
 
-    let query = { userId: _id };
+    let query = { userId: user._id };
     if (from || to) {
       query.date = {};
       if (from) query.date.$gte = new Date(from);
@@ -172,3 +157,4 @@ app.use((req, res) => {
 app.listen(port, () => console.log(`Server is running on port ${port}`));
 
 module.exports = app;
+
