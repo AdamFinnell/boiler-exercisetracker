@@ -151,7 +151,7 @@ app.use('/api/*', (req, res) => {
 });
 
 app.use((req, res) => {
-  res.status(404).send('Route not found');
+  res.status(404).json('Route not found');
 });
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
