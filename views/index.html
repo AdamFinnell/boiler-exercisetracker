@@ -1,307 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercise Tracker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        h2 {
-            color: #444;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-        input[type="text"],
-        input[type="number"],
-        input[type="date"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .result {
-            background-color: #e9ecef;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
-            font-family: monospace;
-            white-space: pre-wrap;
-        }
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-        .success {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-        .users-list {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-        .user-item {
-            padding: 8px;
-            border-bottom: 1px solid #dee2e6;
-        }
-        .user-item:last-child {
-            border-bottom: none;
-        }
-        .inline-form {
-            display: flex;
-            gap: 10px;
-            align-items: end;
-        }
-        .inline-form > div {
-            flex: 1;
-        }
-        .inline-form input {
-            margin-bottom: 0;
-        }
-        .inline-form button {
-            white-space: nowrap;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Exercise Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result, .error, .success {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 5px;
+      white-space: pre-wrap;
+    }
+    .result {
+      background-color: #e9ecef;
+      font-family: monospace;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+  </style>
 </head>
 <body>
-    <h1>Exercise Tracker</h1>
-    
-    <div class="container">
-        <h2>Create New User</h2>
-        <form id="userForm">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <button type="submit">Create User</button>
-        </form>
-        <div id="userResult"></div>
-    </div>
 
-    <div class="container">
-        <h2>All Users</h2>
-        <button onclick="getAllUsers()">Get All Users</button>
-        <div id="usersResult"></div>
-    </div>
+  <h1>Exercise Tracker</h1>
 
-    <div class="container">
-        <h2>Add Exercise</h2>
-        <form id="exerciseForm">
-            <label for="userId">User ID:</label>
-            <input type="text" id="userId" name="userId" required>
-            
-            <label for="description">Description:</label>
-            <input type="text" id="description" name="description" required>
-            
-            <label for="duration">Duration (minutes):</label>
-            <input type="number" id="duration" name="duration" min="1" required>
-            
-            <label for="date">Date (optional):</label>
-            <input type="date" id="date" name="date">
-            
-            <button type="submit">Add Exercise</button>
-        </form>
-        <div id="exerciseResult"></div>
-    </div>
+  <div class="container">
+    <h2>Create New User</h2>
+    <form id="userForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
+      <button type="submit">Create User</button>
+    </form>
+    <div id="userResult"></div>
+  </div>
 
-    <div class="container">
-        <h2>Get Exercise Log</h2>
-        <form id="logForm">
-            <label for="logUserId">User ID:</label>
-            <input type="text" id="logUserId" name="logUserId" required>
-            
-            <div class="inline-form">
-                <div>
-                    <label for="fromDate">From Date (optional):</label>
-                    <input type="date" id="fromDate" name="fromDate">
-                </div>
-                <div>
-                    <label for="toDate">To Date (optional):</label>
-                    <input type="date" id="toDate" name="toDate">
-                </div>
-                <div>
-                    <label for="limit">Limit (optional):</label>
-                    <input type="number" id="limit" name="limit" min="1">
-                </div>
-                <button type="submit">Get Log</button>
-            </div>
-        </form>
-        <div id="logResult"></div>
-    </div>
+  <div class="container">
+    <h2>All Users</h2>
+    <button id="loadUsers">Get All Users</button>
+    <div id="usersResult"></div>
+  </div>
 
-    <script>
-        // Create new user
-        document.getElementById('userForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            
-            try {
-                const response = await fetch('/api/users', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `username=${encodeURIComponent(username)}`
-                });
-                
-                const data = await response.json();
-                const resultDiv = document.getElementById('userResult');
-                
-                if (response.ok) {
-                    resultDiv.innerHTML = `<div class="success">User created successfully!</div><div class="result">${JSON.stringify(data, null, 2)}</div>`;
-                    document.getElementById('userForm').reset();
-                } else {
-                    resultDiv.innerHTML = `<div class="error">Error: ${data.error}</div>`;
-                }
-            } catch (error) {
-                document.getElementById('userResult').innerHTML = `<div class="error">Network error: ${error.message}</div>`;
-            }
-        });
+  <div class="container">
+    <h2>Add Exercise</h2>
+    <form id="exerciseForm">
+      <label for="userId">User ID:</label>
+      <input type="text" id="userId" required />
+      <label for="description">Description:</label>
+      <input type="text" id="description" required />
+      <label for="duration">Duration (minutes):</label>
+      <input type="number" id="duration" required />
+      <label for="date">Date (optional):</label>
+      <input type="date" id="date" />
+      <button type="submit">Add Exercise</button>
+    </form>
+    <div id="exerciseResult"></div>
+  </div>
 
-        // Get all users
-        async function getAllUsers() {
-            try {
-                const response = await fetch('/api/users');
-                const data = await response.json();
-                const resultDiv = document.getElementById('usersResult');
-                
-                if (response.ok) {
-                    if (data.length === 0) {
-                        resultDiv.innerHTML = '<div class="users-list">No users found.</div>';
-                    } else {
-                        const usersList = data.map(user => 
-                            `<div class="user-item"><strong>${user.username}</strong> (ID: ${user._id})</div>`
-                        ).join('');
-                        resultDiv.innerHTML = `<div class="users-list">${usersList}</div>`;
-                    }
-                } else {
-                    resultDiv.innerHTML = `<div class="error">Error: ${data.error}</div>`;
-                }
-            } catch (error) {
-                document.getElementById('usersResult').innerHTML = `<div class="error">Network error: ${error.message}</div>`;
-            }
-        }
+  <div class="container">
+    <h2>Get Exercise Log</h2>
+    <form id="logForm">
+      <label for="logUserId">User ID:</label>
+      <input type="text" id="logUserId" required />
+      <label for="fromDate">From Date (optional):</label>
+      <input type="date" id="fromDate" />
+      <label for="toDate">To Date (optional):</label>
+      <input type="date" id="toDate" />
+      <label for="limit">Limit (optional):</label>
+      <input type="number" id="limit" min="1" />
+      <button type="submit">Get Log</button>
+    </form>
+    <div id="logResult"></div>
+  </div>
 
-        // Add exercise
-        document.getElementById('exerciseForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const userId = document.getElementById('userId').value;
-            const description = document.getElementById('description').value;
-            const duration = document.getElementById('duration').value;
-            const date = document.getElementById('date').value;
-            
-            try {
-                let body = `description=${encodeURIComponent(description)}&duration=${encodeURIComponent(duration)}`;
-                if (date) {
-                    body += `&date=${encodeURIComponent(date)}`;
-                }
-                
-                const response = await fetch(`/api/users/${userId}/exercises`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: body
-                });
-                
-                const data = await response.json();
-                const resultDiv = document.getElementById('exerciseResult');
-                
-                if (response.ok) {
-                    resultDiv.innerHTML = `<div class="success">Exercise added successfully!</div><div class="result">${JSON.stringify(data, null, 2)}</div>`;
-                    document.getElementById('exerciseForm').reset();
-                } else {
-                    resultDiv.innerHTML = `<div class="error">Error: ${data.error}</div>`;
-                }
-            } catch (error) {
-                document.getElementById('exerciseResult').innerHTML = `<div class="error">Network error: ${error.message}</div>`;
-            }
-        });
+  <script>
+    const encode = (obj) => new URLSearchParams(obj).toString();
 
-        // Get exercise log
-        document.getElementById('logForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const userId = document.getElementById('logUserId').value;
-            const fromDate = document.getElementById('fromDate').value;
-            const toDate = document.getElementById('toDate').value;
-            const limit = document.getElementById('limit').value;
-            
-            try {
-                let url = `/api/users/${userId}/logs`;
-                const params = new URLSearchParams();
-                
-                if (fromDate) params.append('from', fromDate);
-                if (toDate) params.append('to', toDate);
-                if (limit) params.append('limit', limit);
-                
-                if (params.toString()) {
-                    url += '?' + params.toString();
-                }
-                
-                const response = await fetch(url);
-                const data = await response.json();
-                const resultDiv = document.getElementById('logResult');
-                
-                if (response.ok) {
-                    resultDiv.innerHTML = `<div class="success">Log retrieved successfully!</div><div class="result">${JSON.stringify(data, null, 2)}</div>`;
-                } else {
-                    resultDiv.innerHTML = `<div class="error">Error: ${data.error}</div>`;
-                }
-            } catch (error) {
-                document.getElementById('logResult').innerHTML = `<div class="error">Network error: ${error.message}</div>`;
-            }
-        });
+    const safeJson = async (response) => {
+      try {
+        return await response.json();
+      } catch {
+        return null;
+      }
+    };
 
-        // Load users on page load
-        window.addEventListener('load', getAllUsers);
-    </script>
+    // Create new user
+    document.getElementById('userForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const res = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({ username })
+      });
+
+      const data = await safeJson(res);
+      const resultDiv = document.getElementById('userResult');
+
+      if (res.ok && data) {
+        resultDiv.innerHTML = `<div class="success">✅ User created!</div><div class="result">${JSON.stringify(data, null, 2)}</div>`;
+        document.getElementById('userForm').reset();
+      } else {
+        resultDiv.innerHTML = `<div class="error">❌ ${data?.error || 'Unknown error'}</div>`;
+      }
+    });
+
+    // Get all users
+    document.getElementById('loadUsers').addEventListener('click', async () => {
+      const res = await fetch('/api/users');
+      const data = await safeJson(res);
+      const resultDiv = document.getElementById('usersResult');
+
+      if (res.ok && Array.isArray(data)) {
+        resultDiv.innerHTML = data.map(user =>
+          `<div><strong>${user.username}</strong> — ID: ${user._id}</div>`
+        ).join('');
+      } else {
+        resultDiv.innerHTML = `<div class="error">❌ Failed to load users</div>`;
+      }
+    });
+
+    // Add exercise
+    document.getElementById('exerciseForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const userId = document.getElementById('userId').value;
+      const description = document.getElementById('description').value;
+      const duration = document.getElementById('duration').value;
+      const date = document.getElementById('date').value;
+
+      const res = await fetch(`/api/users/${userId}/exercises`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({ description, duration, ...(date && { date }) })
+      });
+
+      const data = await safeJson(res);
+      const resultDiv = document.getElementById('exerciseResult');
+
+      if (res.ok && data) {
+        resultDiv.innerHTML = `<div class="success">✅ Exercise added!</div><div class="result">${JSON.stringify(data, null, 2)}</div>`;
+        document.getElementById('exerciseForm').reset();
+      } else {
+        resultDiv.innerHTML = `<div class="error">❌ ${data?.error || 'Error adding exercise'}</div>`;
+      }
+    });
+
+    // Get logs
+    document.getElementById('logForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const userId = document.getElementById('logUserId').value;
+      const from = document.getElementById('fromDate').value;
+      const to = document.getElementById('toDate').value;
+      const limit = document.getElementById('limit').value;
+
+      const params = encode({ ...(from && { from }), ...(to && { to }), ...(limit && { limit }) });
+      const res = await fetch(`/api/users/${userId}/logs?${params}`);
+      const data = await safeJson(res);
+      const resultDiv = document.getElementById('logResult');
+
+      if (res.ok && data) {
+        resultDiv.innerHTML = `<div class="success">📘 Log loaded!</div><div class="result">${JSON.stringify(data, null, 2)}</div>`;
+      } else {
+        resultDiv.innerHTML = `<div class="error">❌ ${data?.error || 'Failed to load log'}</div>`;
+      }
+    });
+  </script>
+
 </body>
 </html>
